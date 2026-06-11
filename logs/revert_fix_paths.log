@@ -1,0 +1,27 @@
+[2026-06-01 17:17:13] Found 44 PHP files in modules/
+[2026-06-01 17:17:13] Reverted: C:\Users\ilham\mts-alihsan\modules\absensi\index.php
+[2026-06-01 17:17:14] Reverted: C:\Users\ilham\mts-alihsan\modules\ekspor\index.php
+[2026-06-01 17:17:14] Reverted: C:\Users\ilham\mts-alihsan\modules\izin\index.php
+[2026-06-01 17:17:14] Reverted: C:\Users\ilham\mts-alihsan\modules\kebersihan\index.php
+[2026-06-01 17:17:14] Reverted: C:\Users\ilham\mts-alihsan\modules\kelas\index.php
+[2026-06-01 17:17:14] Reverted: C:\Users\ilham\mts-alihsan\modules\kelas\proses.php
+[2026-06-01 17:17:15] Reverted: C:\Users\ilham\mts-alihsan\modules\keterlambatan\index.php
+[2026-06-01 17:17:15] Reverted: C:\Users\ilham\mts-alihsan\modules\keterlambatan\rekap_siswa.php
+[2026-06-01 17:17:15] Reverted: C:\Users\ilham\mts-alihsan\modules\pelanggaran\export_excel.php
+[2026-06-01 17:17:15] Reverted: C:\Users\ilham\mts-alihsan\modules\pelanggaran\get_siswa_by_kelas.php
+[2026-06-01 17:17:15] Reverted: C:\Users\ilham\mts-alihsan\modules\pelanggaran\index.php
+[2026-06-01 17:17:15] Reverted: C:\Users\ilham\mts-alihsan\modules\pelanggaran\laporan.php
+[2026-06-01 17:17:15] Reverted: C:\Users\ilham\mts-alihsan\modules\pelanggaran\proses.php
+[2026-06-01 17:17:15] Reverted: C:\Users\ilham\mts-alihsan\modules\pelanggaran\rekap_siswa.php
+[2026-06-01 17:17:15] Reverted: C:\Users\ilham\mts-alihsan\modules\pengaturan\index.php
+[2026-06-01 17:17:15] Reverted: C:\Users\ilham\mts-alihsan\modules\pengaturan\profil_admin.php
+[2026-06-01 17:17:15] Reverted: C:\Users\ilham\mts-alihsan\modules\pengaturan\proses.php
+[2026-06-01 17:17:15] Reverted: C:\Users\ilham\mts-alihsan\modules\prestasi\export_excel.php
+[2026-06-01 17:17:15] Reverted: C:\Users\ilham\mts-alihsan\modules\prestasi\index.php
+[2026-06-01 17:17:15] Reverted: C:\Users\ilham\mts-alihsan\modules\prestasi\laporan.php
+[2026-06-01 17:17:15] Reverted: C:\Users\ilham\mts-alihsan\modules\prestasi\proses.php
+[2026-06-01 17:17:15] Reverted: C:\Users\ilham\mts-alihsan\modules\siswa\export_template.php
+[2026-06-01 17:17:16] Reverted: C:\Users\ilham\mts-alihsan\modules\siswa\import_proses.php
+[2026-06-01 17:17:16] Reverted: C:\Users\ilham\mts-alihsan\modules\siswa\index.php
+[2026-06-01 17:17:16] Reverted: C:\Users\ilham\mts-alihsan\modules\siswa\proses.php
+[2026-06-01 17:17:16] Done. Files changed: 25

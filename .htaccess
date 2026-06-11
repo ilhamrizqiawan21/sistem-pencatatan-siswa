@@ -1,0 +1,31 @@
+# MTS Al-Ihsan - URL Routing Configuration
+# Clean and simple routing rules
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /mts-alihsan/
+    
+    # Serve existing files/directories directly
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # If request without extension matches a .php file, serve it internally
+    RewriteCond %{REQUEST_FILENAME}.php -f
+    RewriteRule ^(.+?)/?$ $1.php [L]
+
+    # Redirect direct requests to .php to extensionless canonical URL
+    RewriteCond %{THE_REQUEST} "^[A-Z]{3,}\\s([^\\s]+)\\.php[\\s?]" [NC]
+    RewriteRule ^ %1 [R=301,L]
+
+    # Fallback: send everything to index.php (router) excluding existing files
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ index.php [L,QSA]
+</IfModule>
+
+# Security
+Options -Indexes
+
+
+

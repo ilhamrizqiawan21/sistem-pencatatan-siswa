@@ -1,0 +1,32 @@
+# MTS Al-Ihsan - DEBUG VERSION with Rewrite Logging
+# To use this:
+# 1. Rename current .htaccess: mv .htaccess .htaccess.bak
+# 2. Rename this file: mv .htaccess.debug .htaccess
+# 3. Create logs directory: mkdir -p /tmp/mts-alihsan-logs
+# 4. Set permissions: chmod 777 /tmp/mts-alihsan-logs
+# 5. Access the site and check the rewrite log
+
+RewriteEngine On
+RewriteBase /mts-alihsan/
+
+# Enable logging (change path to match your system)
+RewriteLogLevel 3
+RewriteLog /tmp/mts-alihsan-logs/rewrite.log
+
+# Skip rewrite if request is for a real file
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^ - [L]
+
+# Skip rewrite if request is for a real directory  
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Skip rewrite for index.php itself
+RewriteCond %{REQUEST_URI} ^/mts-alihsan/index\.php$
+RewriteRule ^ - [L]
+
+# Rewrite everything else to index.php
+RewriteRule ^.*$ index.php [QSA,L]
+
+# Prevent directory listing
+Options -Indexes

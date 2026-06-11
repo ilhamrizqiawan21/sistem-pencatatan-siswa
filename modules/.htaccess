@@ -1,0 +1,3 @@
+# Allow modules folder
+# All routing handled by main index.php
+RewriteEngine Off

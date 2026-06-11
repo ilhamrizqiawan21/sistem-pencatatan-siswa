@@ -1,0 +1,24 @@
+# MTS Al-Ihsan - Minimal Routing Configuration
+# This is a minimal version to avoid conflicts
+
+RewriteEngine On
+RewriteBase /mts-alihsan/
+
+# Skip rewrite if request is for a real file
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^ - [L]
+
+# Skip rewrite if request is for a real directory  
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Skip rewrite for index.php itself
+RewriteCond %{REQUEST_URI} ^/mts-alihsan/index\.php$ [OR]
+RewriteCond %{REQUEST_FILENAME} =index.php
+RewriteRule ^ - [L]
+
+# Rewrite everything else to index.php
+RewriteRule ^.*$ index.php [QSA,L]
+
+# Prevent directory listing
+Options -Indexes

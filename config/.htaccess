@@ -1,0 +1,7 @@
+# Allow all files in config
+# PHP files will only be executed via require/include
+Options +FollowSymLinks
+RewriteEngine Off
+
+
+

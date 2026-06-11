@@ -1,0 +1,75 @@
+mts-alihsan/
+├── index.php                     # Dashboard (ringkasan + grafik, require login)
+├── login.php                     # Halaman login (cek username/password)
+├── logout.php                    # Hapus session dan logout
+├── .htaccess                     # (Opsional) redirect dan keamanan sederhana
+│
+├── config/                       # Konfigurasi & fungsi helper
+│   ├── db.php                    # Koneksi MySQL (PDO atau mysqli)
+│   ├── functions.php             # Helper: formatTanggal(), uploadFoto(), dsb
+│   ├── auth.php                  # Session & role checking (celah multiple role)
+│   ├── constants.php             # Base URL, path upload, dsb
+│
+├── includes/                     # Komponen layout (header, footer, sidebar)
+│   ├── header.php                # Doctype, CSS, navbar, cek session login
+│   ├── sidebar.php               # Menu navigasi (dinamis sesuai role)
+│   ├── footer.php                # JS (Chart.js, script umum), tag penutup
+│
+├── modules/                      # Semua modul utama
+│   ├── dashboard/
+│   │   └── index.php             # (Biasanya langsung di index.php root, atau di sini)
+│   │
+│   ├── kelas/                    # Manajemen kelas
+│   │   ├── index.php             # Daftar kelas, tombol tambah/edit/hapus
+│   │   └── proses.php            # Proses simpan, update, hapus kelas
+│   │
+│   ├── siswa/                    # Manajemen siswa
+│   │   ├── index.php             # Daftar siswa per kelas, filter, tambah/edit/hapus
+│   │   └── proses.php            # CRUD siswa (upload foto optional)
+│   │
+│   ├── absensi/                  # Absensi harian
+│   │   ├── index.php             # Pilih kelas & tanggal → form absensi per siswa
+│   │   ├── proses.php            # Simpan absensi (status H/I/S/A)
+│   │   └── laporan.php           # Rekap absensi per siswa / per kelas
+│   │
+│   ├── keterlambatan/            # Catatan keterlambatan
+│   │   ├── index.php             # Form tambah + daftar keterlambatan (edit/hapus)
+│   │   └── proses.php            # CRUD keterlambatan
+│   │
+│   ├── pelanggaran/              # Catatan pelanggaran
+│   │   ├── index.php             # Pilih siswa & jenis pelanggaran, input tanggal
+│   │   └── proses.php            # CRUD pelanggaran
+│   │
+│   ├── prestasi/                 # Prestasi siswa dengan upload foto
+│   │   ├── index.php             # Daftar prestasi + form tambah (upload foto)
+│   │   └── proses.php            # Simpan prestasi, update, hapus, hapus foto
+│   │
+│   ├── kebersihan/               # Penilaian kebersihan kelas
+│   │   ├── index.php             # Pilih kelas & tanggal, input 4 aspek (0-100)
+│   │   └── proses.php            # Simpan nilai kebersihan (nilai_total dihitung DB)
+│   │
+│   ├── pengaturan/               # Pengaturan tahun ajaran aktif
+│   │   ├── index.php             # List tahun ajaran, pilih aktif, tambah baru
+│   │   └── proses.php            # CRUD tahun ajaran & set aktif
+│   │
+│   └── ekspor/                   # Fitur ekspor data
+│       ├── excel.php             # Generate Excel (PHPSpreadsheet) berdasarkan parameter
+│       └── html_print.php        # Tampilan HTML siap print (untuk modul tertentu)
+│
+├── assets/                       # Aset frontend
+│   ├── css/
+│   │   ├── style.css             # Custom style (tambahan)
+│   │   └── bootstrap.min.css     # (Opsional) Download Bootstrap 5
+│   ├── js/
+│   │   ├── script.js             # JS umum: konfirmasi hapus, toggle form
+│   │   ├── chart.js              # Inisialisasi Chart.js di dashboard
+│   │   └── bootstrap.bundle.min.js
+│   └── img/                      # Logo, favicon, gambar default
+│
+├── uploads/                      # Tempat file upload (foto prestasi, foto siswa)
+│   └── prestasi/                 # Subfolder khusus foto prestasi
+│
+├── vendor/                       # Hasil install Composer (PHPSpreadsheet)
+│   └── (autoload.php dll)
+│
+└── composer.json                 # Daftar dependency (phpoffice/phpspreadsheet)

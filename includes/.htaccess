@@ -1,0 +1,5 @@
+# Allow all files in includes
+# PHP files will only be executed via require/include
+RewriteEngine Off
+
+

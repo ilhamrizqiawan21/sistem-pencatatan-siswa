@@ -1,0 +1,11 @@
+# MTS Al-Ihsan - DISABLED Routing (for debugging)
+# If you want to test without URL rewriting:
+# 1. Rename current .htaccess: mv .htaccess .htaccess.bak
+# 2. Rename this file: mv .htaccess.disabled .htaccess
+# 3. Access with .php extension: https://ilham.didzacorp.com/mts-alihsan/index.php
+
+# Disable rewrite
+RewriteEngine Off
+
+# Prevent directory listing
+Options -Indexes

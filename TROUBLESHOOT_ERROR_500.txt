@@ -1,0 +1,269 @@
+ERROR 500 TROUBLESHOOTING GUIDE
+==============================
+
+## Problem
+Getting HTTP 500 Internal Server Error from Apache when accessing the site.
+
+## Diagnosis Steps (Do these in order)
+
+### STEP 1: Test Basic PHP (Most Important!)
+==============================================
+
+Access this URL WITHOUT routing:
+```
+https://ilham.didzacorp.com/mts-alihsan/simple_test.php
+```
+
+This file:
+- Does NOT use .htaccess routing
+- Tests basic PHP functionality
+- Tests file loading
+- Tests database connection
+
+**If this works:** Problem is in routing (.htaccess)
+**If this fails:** Problem is in PHP/configuration
+
+---
+
+### STEP 2: Check Available Files
+==================================
+
+Make sure these files exist in /mts-alihsan/:
+- ✓ index.php
+- ✓ login.php
+- ✓ logout.php
+- ✓ config/env.php
+- ✓ config/db.php
+- ✓ config/auth.php
+- ✓ config/constants.php
+- ✓ config/error-handler.php
+- ✓ config/router.php
+- ✓ config/functions.php
+- ✓ includes/header.php
+- ✓ .env
+
+All should be present!
+
+---
+
+### STEP 3: Test Without Routing
+==================================
+
+If simple_test.php works but main site doesn't:
+
+**Temporarily disable .htaccess routing:**
+
+Option A - Using File Manager:
+1. Rename: .htaccess → .htaccess.bak
+2. Rename: .htaccess.disabled → .htaccess
+3. Test with: https://ilham.didzacorp.com/mts-alihsan/index.php
+
+Option B - Using Terminal:
+```bash
+cd /path/to/mts-alihsan/
+mv .htaccess .htaccess.bak
+mv .htaccess.disabled .htaccess
+```
+
+**Then test:**
+- https://ilham.didzacorp.com/mts-alihsan/index.php
+
+**If this works:** mod_rewrite is causing the problem
+**If still 500:** Problem is in PHP code, not routing
+
+---
+
+### STEP 4: Re-enable and Try Minimal Routing
+==============================================
+
+If disabling .htaccess worked, try minimal routing:
+
+```bash
+cd /path/to/mts-alihsan/
+cp .htaccess .htaccess.backup
+cp .htaccess.minimal .htaccess
+```
+
+Then test: https://ilham.didzacorp.com/mts-alihsan/
+
+---
+
+### STEP 5: Check Apache Logs
+==============================
+
+The most important step for real diagnosis!
+
+**Via SSH/Terminal:**
+```bash
+# Ubuntu/Debian
+tail -50 /var/log/apache2/error.log
+
+# CentOS/RHEL
+tail -50 /var/log/httpd/error_log
+
+# Common hosting
+tail -50 /home/username/logs/error.log
+tail -50 /var/www/vhosts/ilham.didzacorp.com/logs/error.log
+```
+
+Look for lines like:
+```
+[error] ... mod_rewrite: ... 
+[error] ... PHP Fatal error: ...
+[error] ... File not found: ...
+```
+
+**Via Hosting Control Panel (cPanel, Plesk, etc.):**
+- Log in to control panel
+- Look for "Error Logs" or "Apache Error Log"
+- Check for recent 500 errors
+- Screenshot the errors
+
+**Contact hosting support with:**
+- Error log contents
+- Time when error occurred
+- URL that caused error
+
+---
+
+### STEP 6: Check mod_rewrite Status
+====================================
+
+**Is mod_rewrite enabled?**
+
+```bash
+# Check if mod_rewrite is loaded
+apache2ctl -M | grep rewrite
+
+# Should output: rewrite_module (shared)
+```
+
+**If not enabled:**
+- Contact your hosting provider
+- Ask them to enable mod_rewrite in Apache
+- This requires root access
+
+---
+
+### STEP 7: Verify File Permissions
+===================================
+
+```bash
+# Fix directory permissions
+chmod 755 /home/user/public_html/mts-alihsan/
+
+# Fix .htaccess files
+chmod 644 /home/user/public_html/mts-alihsan/.htaccess*
+
+# Fix PHP files
+chmod 644 /home/user/public_html/mts-alihsan/*.php
+chmod 644 /home/user/public_html/mts-alihsan/config/*.php
+chmod 644 /home/user/public_html/mts-alihsan/includes/*.php
+
+# Make uploads writable
+chmod 755 /home/user/public_html/mts-alihsan/uploads/
+```
+
+---
+
+### STEP 8: Enable Debug Logging
+================================
+
+Use the debug .htaccess to see rewrite logs:
+
+```bash
+cd /path/to/mts-alihsan/
+
+# Backup current
+cp .htaccess .htaccess.current
+
+# Use debug version
+cp .htaccess.debug .htaccess
+
+# Create log directory
+mkdir -p /tmp/mts-alihsan-logs
+chmod 777 /tmp/mts-alihsan-logs
+```
+
+Then access the site and check:
+```bash
+tail -50 /tmp/mts-alihsan-logs/rewrite.log
+```
+
+This will show exactly what Apache mod_rewrite is doing.
+
+---
+
+## Common Solutions
+
+### Problem: "mod_rewrite is not enabled"
+**Solution:** Contact hosting provider to enable mod_rewrite
+
+### Problem: ".htaccess not allowed"
+**Solution:** Check if .htaccess is allowed in Apache config
+```bash
+# File: /etc/apache2/apache2.conf or /etc/apache2/sites-enabled/000-default.conf
+# Should have:
+<Directory /path/to/mts-alihsan>
+    AllowOverride All
+</Directory>
+```
+
+### Problem: "File not found"
+**Solution:** Check if index.php exists and is readable
+```bash
+ls -la /path/to/mts-alihsan/index.php
+```
+
+### Problem: "Premature end of script headers"
+**Solution:** PHP error before any output. Check error logs.
+
+### Problem: Still getting 500 after all this
+**Solution:** 
+1. Share Apache error log with hosting support
+2. Use simple_test.php URL to verify PHP works
+3. Temporarily disable all .htaccess:
+   ```bash
+   cp .htaccess .htaccess.bak
+   echo "# disabled" > .htaccess
+   ```
+
+---
+
+## Quick Checklist
+
+- [ ] simple_test.php works?
+- [ ] All required files present?
+- [ ] Works without .htaccess?
+- [ ] mod_rewrite enabled?
+- [ ] File permissions correct?
+- [ ] Checked Apache error log?
+- [ ] AllowOverride All set in Apache?
+- [ ] Database connection works?
+
+---
+
+## Alternative: Use Original Code
+
+If nothing works, go back to the original code before we made changes:
+
+1. Replace all files with original versions
+2. Access with .php extensions: index.php, login.php, etc.
+3. This should definitely work as it's the original code
+
+---
+
+## Contact Support With This Info
+
+When contacting hosting support, provide:
+1. Error message (screenshot or text)
+2. Apache error log (last 50 lines)
+3. URL causing the error
+4. Time when error started
+5. What changed (we added routing)
+
+This will help them fix it faster.
+
+---
+
+**Remember:** The simple_test.php file is your best friend for diagnosis!
