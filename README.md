@@ -1,136 +1,90 @@
-# Sistem Pencatatan Siswa
+# Sistem Informasi Manajemen MTs Al-Ihsan
 
-## Description / Deskripsi
+Sistem Informasi Manajemen (SIM) Sekolah yang dirancang khusus untuk MTs Al-Ihsan. Aplikasi berbasis web ini membantu dalam pengelolaan data siswa, absensi, pelanggaran, prestasi, dan kebersihan kelas secara terintegrasi.
 
-**English:**
-Sistem Pencatatan Siswa is a comprehensive student record management system for MTs. Al-Ihsan Batujajar. This application manages all aspects of student data including attendance, disciplinary records, tardiness, achievements, student roster, and early dismissal permissions. It provides a centralized solution for tracking and managing student information.
+## 🚀 Fitur Utama
 
-**Indonesia:**
-Sistem Pencatatan Siswa adalah sistem manajemen catatan siswa yang komprehensif untuk MTs. Al-Ihsan Batujajar. Aplikasi ini mengelola semua aspek data siswa termasuk kehadiran, catatan pelanggaran, keterlambatan, prestasi, daftar siswa, dan izin pulang lebih awal. Ini menyediakan solusi terpusat untuk melacak dan mengelola informasi siswa.
+- **Dashboard Statistik**: Visualisasi data kehadiran, total siswa, dan peringkat kebersihan kelas secara real-time.
+- **Manajemen Siswa & Kelas**: Pengelolaan data induk siswa dan pembagian rombongan belajar (rombel).
+- **Sistem Absensi**: Pencatatan kehadiran harian siswa dengan laporan bulanan yang dapat diekspor.
+- **Pencatatan Pelanggaran & Keterlambatan**: Monitoring kedisiplinan siswa dengan sistem poin/rekapitulasi.
+- **Manajemen Prestasi**: Pendataan prestasi siswa lengkap dengan dokumentasi foto.
+- **Penilaian Kebersihan**: Sistem peringkat kebersihan antar kelas untuk memotivasi siswa.
+- **Ekspor Laporan**: Mendukung ekspor data ke format Excel menggunakan library PhpSpreadsheet.
+- **Multi Tahun Ajaran**: Pengelolaan data yang dipisahkan berdasarkan tahun ajaran aktif.
 
----
+## 🛠️ Teknologi yang Digunakan
 
-## Installation / Instalasi
+- **Backend**: PHP (Native)
+- **Database**: MySQL (PDO)
+- **Frontend**: Bootstrap, FontAwesome, Chart.js
+- **Dependencies**: [PhpSpreadsheet](https://github.com/PHPOffice/PhpSpreadsheet)
+- **Environment Management**: Custom `.env` loader
 
-### Requirements / Persyaratan:
-- PHP (v7.4 or higher / v7.4 atau lebih tinggi)
+## 📋 Prasyarat Sistem
+
+- PHP >= 8.0
+- MySQL >= 5.7
 - Composer
-- MySQL atau PostgreSQL
-- Laravel Framework
-- Node.js (untuk asset compilation / kompilasi aset)
+- Web Server (Apache/Nginx)
 
-### Steps / Langkah-langkah:
+## 🔧 Instalasi
 
-**English:**
-1. Clone the repository:
+1. **Clone Repository**
    ```bash
-   git clone https://github.com/ilhamrizqiawan21/sistem-pencatatan-siswa.git
-   cd sistem-pencatatan-siswa
+   git clone https://github.com/username/mts-alihsan.git
+   cd mts-alihsan
    ```
 
-2. Install dependencies:
+2. **Instal Dependensi**
+   Pastikan Composer sudah terinstal di sistem Anda.
    ```bash
    composer install
-   npm install
    ```
 
-3. Setup environment file:
+3. **Konfigurasi Database**
+   - Buat database baru di MySQL (misal: `mts_alihsan`).
+   - Import file SQL yang tersedia di folder `modules/database/` atau root directory.
+
+4. **Pengaturan Environment**
+   Salin file `.env.example` menjadi `.env` dan sesuaikan konfigurasinya.
    ```bash
-   cp .env.example .env
-   php artisan key:generate
+   cp config/.env.example .env
+   ```
+   Edit `.env`:
+   ```env
+   DB_HOST=localhost
+   DB_NAME=mts_alihsan
+   DB_USER=root
+   DB_PASS=your_password
+   BASE_URL=http://localhost/mts-alihsan/
    ```
 
-4. Configure database and run migrations:
+5. **Izin Folder Upload**
+   Pastikan folder `uploads/` memiliki izin tulis (write permission).
    ```bash
-   php artisan migrate
+   chmod -R 775 uploads/
    ```
 
-5. Compile front-end assets:
-   ```bash
-   npm run dev
-   ```
+## 📁 Struktur Direktori
 
-6. Start the application:
-   ```bash
-   php artisan serve
-   ```
+- `assets/`: File statis (CSS, JS, Images).
+- `config/`: Konfigurasi database, router, dan fungsi global.
+- `includes/`: Komponen layout (Header, Footer, Sidebar).
+- `modules/`: Logika utama per fitur (Absensi, Pelanggaran, dll).
+- `uploads/`: Media penyimpanan file yang diunggah (Foto Prestasi).
+- `vendor/`: Library pihak ketiga via Composer.
 
-**Indonesia:**
-1. Clone repository:
-   ```bash
-   git clone https://github.com/ilhamrizqiawan21/sistem-pencatatan-siswa.git
-   cd sistem-pencatatan-siswa
-   ```
+## 🔒 Keamanan
 
-2. Install dependencies:
-   ```bash
-   composer install
-   npm install
-   ```
+Aplikasi ini dilengkapi dengan:
+- `config/auth.php`: Proteksi sesi login.
+- `.htaccess`: Pembatasan akses ke folder sensitif.
+- `PDO`: Pencegahan SQL Injection dengan prepared statements.
 
-3. Setup file environment:
-   ```bash
-   cp .env.example .env
-   php artisan key:generate
-   ```
+## 📄 Lisensi
 
-4. Konfigurasi database dan jalankan migrasi:
-   ```bash
-   php artisan migrate
-   ```
-
-5. Kompilasi aset front-end:
-   ```bash
-   npm run dev
-   ```
-
-6. Jalankan aplikasi:
-   ```bash
-   php artisan serve
-   ```
+Proyek ini dikembangkan untuk kebutuhan internal MTs Al-Ihsan.
 
 ---
-
-## Features & Usage / Fitur & Penggunaan
-
-### English:
-
-**Features:**
-- **Student Attendance Management** - Track daily attendance and generate attendance reports
-- **Disciplinary Records** - Record and monitor student violations and penalties
-- **Tardiness Tracking** - Log and analyze student tardiness patterns
-- **Achievement Management** - Record student accomplishments and awards
-- **Student Roster** - Comprehensive student enrollment and profile management
-- **Early Dismissal Permissions** - Manage and track early dismissal requests
-
-**Usage:**
-1. Login to the administration panel
-2. Select the feature you want to use (Attendance, Discipline, etc.)
-3. Record or view student information
-4. Generate reports as needed
-5. Export data for administrative records
-
-### Indonesia:
-
-**Fitur:**
-- **Manajemen Kehadiran Siswa** - Lacak kehadiran harian dan buat laporan kehadiran
-- **Catatan Pelanggaran** - Catat dan pantau pelanggaran siswa dan hukuman
-- **Pelacakan Keterlambatan** - Catat dan analisis pola keterlambatan siswa
-- **Manajemen Prestasi** - Catat pencapaian dan penghargaan siswa
-- **Daftar Siswa** - Manajemen pendaftaran dan profil siswa yang komprehensif
-- **Izin Pulang Lebih Awal** - Kelola dan lacak permintaan pulang lebih awal
-
-**Penggunaan:**
-1. Login ke panel administrasi
-2. Pilih fitur yang ingin Anda gunakan (Kehadiran, Pelanggaran, dll)
-3. Catat atau lihat informasi siswa
-4. Buat laporan sesuai kebutuhan
-5. Ekspor data untuk catatan administratif
-
----
-
-## Author / Penulis
-Ilham Rizqiawan
-
-## License / Lisensi
-This project is licensed under the MIT License - see the LICENSE file for details.
+*Dikembangkan dengan integritas untuk kemajuan pendidikan.*
